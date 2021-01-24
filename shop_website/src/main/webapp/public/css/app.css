@@ -1,0 +1,96 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header .app-icon {
+  height: 40px;
+}
+
+header .user-avatar {
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+main {
+  height: 100%;
+}
+
+footer {
+  background: #343a40;
+  color: #ffffff;
+}
+
+footer .copyright:hover {
+  text-decoration: none;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  background-image: linear-gradient(#00000080, #00000080),
+    url("/img/app/app-img.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.hero h1 {
+  font-size: 5em;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.hero-btn {
+  display: block;
+  width: 200px;
+  height: 90px;
+  padding: 1em;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.5em;
+  border: 3px solid #ffffff;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.hero-btn:hover {
+  color: #4b229dcc;
+  text-decoration: none;
+  background-color: #ffffff;
+}
+
+#back-button {
+  position: fixed;
+  z-index: 9999;
+  top: 68px;
+  right: 0;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+      
+<tiles-definitions>  
+ 
+   <!-- Layout -->
+   <definition name="layout" template="/tiles/layouts/layout.jsp"> 
+       <put-attribute name="title" 	value="Online shop" />  
+       <put-attribute name="header" value="/tiles/partials/header.jsp" />  
+       <put-attribute name="menu" 	value="/tiles/partials/menu.jsp" />  
+       <put-attribute name="body" 	value="/tiles/partials/body.jsp" />  
+       <put-attribute name="footer" value="/tiles/partials/footer.jsp" />  
+   </definition>  
+ 
+   <!-- Custom View -->	
+   <!-- Home -->
+   <definition name="home" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/home.jsp"/>  
+   </definition>  
+   
+   <!-- Home -->
+   <definition name="auth" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/auth/auth.jsp"/>  
+   </definition>  
+   
+</tiles-definitions>
