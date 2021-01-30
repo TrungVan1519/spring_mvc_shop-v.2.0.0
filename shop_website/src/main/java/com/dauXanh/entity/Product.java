@@ -29,7 +29,7 @@ public class Product {
 	@NotEmpty(message = "Name is required")
 	String name;
 
-	String cost;
+	int cost;
 	String description;
 	String img;
 
@@ -51,6 +51,20 @@ public class Product {
 
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Product() {
+	}
+	
+	public Product(@NotEmpty(message = "Name is required") String name, int cost, String description, String img,
+			Category category, Set<ProductDetail> productDetails, Set<Sale> sales) {
+		this.name = name;
+		this.cost = cost;
+		this.description = description;
+		this.img = img;
+		this.category = category;
+		this.productDetails = productDetails;
+		this.sales = sales;
+	}
 
 	public int getId() {
 		return id;
@@ -68,11 +82,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getCost() {
+	public int getCost() {
 		return cost;
 	}
 
-	public void setCost(String cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
 	}
 
@@ -131,5 +145,4 @@ public class Product {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 }

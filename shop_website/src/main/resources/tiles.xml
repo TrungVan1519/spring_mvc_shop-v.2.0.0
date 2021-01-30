@@ -14,15 +14,32 @@
        <put-attribute name="footer" value="/tiles/partials/footer.jsp" />  
    </definition>  
  
-   <!-- Custom View -->	
+   <!-- Content -->	
    <!-- Home -->
    <definition name="home" extends="layout">  
        <put-attribute name="body" 	value="/tiles/content/home.jsp"/>  
    </definition>  
    
-   <!-- Home -->
+   <!-- Auth -->
    <definition name="auth" extends="layout">  
        <put-attribute name="body" 	value="/tiles/content/auth/auth.jsp"/>  
+   </definition>  
+   
+   <!-- Product -->
+   <definition name="products" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/product/products.jsp"/>  
+   </definition>  
+   
+   <definition name="product-detail" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/product/product-detail.jsp"/>  
+   </definition>  
+   
+   <definition name="cart" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/product/cart.jsp"/>  
+   </definition>  
+   
+   <definition name="manage-products" extends="layout">  
+       <put-attribute name="body" 	value="/tiles/content/product/manage-products.jsp"/>  
    </definition>  
    
 </tiles-definitions>

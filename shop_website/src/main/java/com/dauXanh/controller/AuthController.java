@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,26 +24,41 @@ import com.dauXanh.service.UserService;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+	
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	UserService userService;
 
+	/**
+	 * For auth/auth.jsp
+	 * 
+	 * @param command
+	 * @param req
+	 * @param session
+	 * @return
+	 */
 	@GetMapping
 	String showForm(@RequestParam(required = false) String command, HttpServletRequest req, HttpSession session) {
 
+		req.setAttribute("user", session.getAttribute("user"));
+		req.setAttribute("cart", session.getAttribute("cart"));
+
 		if (command == null || (!command.contentEquals("signup") && !command.contentEquals("logout"))) {
 			req.setAttribute("command", "login");
-			return "auth";
 
+			return "auth";
 		}
 
 		if (command.contentEquals("signup")) {
 			req.setAttribute("command", "signup");
+
 			return "auth";
 		}
 
 		if (command.contentEquals("logout")) {
 			session.removeAttribute("user");
+
 			return "redirect:/";
 		}
 
@@ -57,6 +73,7 @@ public class AuthController {
 		if (user != null) {
 			session.setAttribute("user", user);
 			session.setMaxInactiveInterval(60 * 3); // 3 mins
+			
 			return "/";
 		}
 
@@ -65,21 +82,22 @@ public class AuthController {
 
 	@PostMapping("/ajax-signup")
 	@ResponseBody
-	List<String> handleSignup(@Valid @ModelAttribute User user, BindingResult bindingResult,
-			HttpServletRequest req) {
+	List<String> handleSignup(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpServletRequest req) {
 
 		if (bindingResult.hasErrors()) {
 			List<String> errors = new ArrayList<String>();
 			bindingResult.getFieldErrors().forEach(field -> {
 				errors.add(field.getDefaultMessage());
 			});
+
 			return errors;
 		}
 
-		boolean isDone = userService.save(user);
-		if (!isDone) {
+		boolean isCreateSuccess = userService.save(user);
+		if (!isCreateSuccess) {
 			List<String> errors = new ArrayList<String>();
 			errors.add("Email is already existing");
+
 			return errors;
 		}
 

@@ -34,6 +34,15 @@ public class Category {
 	
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Category() {
+	}
+
+	public Category(@NotEmpty(message = "Name is required") String name, String img, Set<Product> products) {
+		this.name = name;
+		this.img = img;
+		this.products = products;
+	}
 
 	public int getId() {
 		return id;
@@ -82,5 +91,4 @@ public class Category {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 }

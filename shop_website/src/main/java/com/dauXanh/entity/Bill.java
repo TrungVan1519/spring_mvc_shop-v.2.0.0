@@ -20,25 +20,39 @@ public class Bill {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 
-	@NotEmpty(message = "Name is required")
+	@NotEmpty(message = "Title is required")
 	String name;
-	
+
+	@NotEmpty(message = "User name is required")
 	@Column(name = "user_name")
 	String userName;
-	
+
 	boolean status;
-	
+
 	@Column(name = "phone_number")
 	String phoneNumber;
-	
+
 	@Column(name = "ship_address")
 	String shipAddress;
-	
+
 	@Temporal(TemporalType.DATE)
 	Date createdAt;
-	
+
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Bill() {
+	}
+
+	public Bill(@NotEmpty(message = "Title is required") String name,
+			@NotEmpty(message = "User name is required") String userName, boolean status, String phoneNumber,
+			String shipAddress) {
+		this.name = name;
+		this.userName = userName;
+		this.status = status;
+		this.phoneNumber = phoneNumber;
+		this.shipAddress = shipAddress;
+	}
 
 	public int getId() {
 		return id;
@@ -103,9 +117,8 @@ public class Bill {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
 //	@OneToMany(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "id_bill")
 //	Set<BillDetail> billDetails;
-	
 }

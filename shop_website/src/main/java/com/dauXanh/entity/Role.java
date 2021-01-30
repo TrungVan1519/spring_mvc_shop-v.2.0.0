@@ -32,6 +32,14 @@ public class Role {
 	
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Role() {
+	}
+
+	public Role(@NotEmpty(message = "Name is required") String name, Set<User> users) {
+		this.name = name;
+		this.users = users;
+	}
 
 	public int getId() {
 		return id;
@@ -72,5 +80,4 @@ public class Role {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 }

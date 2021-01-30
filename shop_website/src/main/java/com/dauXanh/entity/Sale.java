@@ -44,6 +44,20 @@ public class Sale {
 	
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Sale() {
+	}
+	
+	public Sale(@NotEmpty(message = "Name is required") String name, int cost, String description, String img,
+			String startAt, String endAt, Set<Product> products) {
+		this.name = name;
+		this.cost = cost;
+		this.description = description;
+		this.img = img;
+		this.startAt = startAt;
+		this.endAt = endAt;
+		this.products = products;
+	}
 
 	public int getId() {
 		return id;
@@ -124,5 +138,4 @@ public class Sale {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 }

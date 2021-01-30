@@ -32,8 +32,6 @@
 			<div class="navbar-nav mr-auto">
 				<a class="nav-item nav-link active"
 					href="<c:url value="/product/list"/>">Sản phẩm</a>
-				<a class="nav-item nav-link active"
-					href="<c:url value="/category/list"/>">Danh mục</a>
 			</div>
 			<!-- Left items -->
 
@@ -48,14 +46,9 @@
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> ${ user.email } </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<c:url value='/users/me'/>">
-									Tài khoản <i class="fas fa-user"></i>
-								</a>
-								<div class="dropdown-divider"></div>
-
 								<a class="dropdown-item"
-									href="<c:url value='/product/me/list'/>">
-									Sản phẩm <i class="fas fa-cubes"></i>
+									href="<c:url value='/product/manage/list'/>">
+									Quản lý sản phẩm <i class="fas fa-cubes"></i>
 								</a>
 								<div class="dropdown-divider"></div>
 
@@ -72,6 +65,12 @@
 							href="<c:url value="/auth?command=signup"/>">Đăng ký</a>
 					</c:otherwise>
 				</c:choose>
+
+				<a class="nav-item nav-link"
+					href="<c:url value="/product/show-cart"/>">
+					<i class="fas fa-shopping-cart"></i>
+					<span id="cart-size">${ cart.size() }</span> 
+				</a>
 
 			</div>
 			<!-- Right items -->

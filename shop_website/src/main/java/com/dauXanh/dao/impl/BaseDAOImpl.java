@@ -30,10 +30,10 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	 */
 	@Override
 	public List<E> findAll(StringBuilder criteria, Map<String, Object> params, Page page) {
+		
 		// Append sql commands
-		StringBuilder sql = new StringBuilder().append("FROM ").append(this.getEntityClassName()).append(" ");
-		StringBuilder counting = new StringBuilder().append("SELECT COUNT(*) FROM ").append(this.getEntityClassName())
-				.append(" ");
+		StringBuilder sql = new StringBuilder("FROM ").append(this.getEntityClassName()).append(" ");
+		StringBuilder counting = new StringBuilder("SELECT COUNT(*) FROM ").append(this.getEntityClassName()).append(" ");
 		if (criteria != null && !criteria.toString().isEmpty()) {
 			sql.append(criteria);
 			counting.append(criteria);
@@ -67,30 +67,33 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	 */
 	@Override
 	public E findById(Class<E> entityClassName, Serializable id) {
+		
 		return sessionFactory.getCurrentSession().get(entityClassName, id);
 	}
 
 	@Override
-	public boolean save(E obj) {
-		int id = (int) sessionFactory.getCurrentSession().save(obj);
-		if (id != 0) {
-			return true;
-		}
+	public boolean save(E newObj) {
+		
+		Serializable id = sessionFactory.getCurrentSession().save(newObj);
+
+		if (id != null) return true;
 		return false;
 	}
 
 	@Override
-	public boolean update(E obj) {
-		Object updated = sessionFactory.getCurrentSession().merge(obj);
-		if (updated != null) {
-			return true;
-		}
+	public boolean update(E existObj) {
+		
+		Object obj = sessionFactory.getCurrentSession().merge(existObj);
+
+		if (obj != null) return true;
 		return false;
 	}
 
 	@Override
 	public boolean deleteById(Class<E> entityClassName, Serializable id) {
+	
 		E obj = sessionFactory.getCurrentSession().get(entityClassName, id);
+
 		if (obj != null) {
 			sessionFactory.getCurrentSession().delete(obj);
 			return true;
@@ -104,6 +107,7 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	 * @return
 	 */
 	String getEntityClassName() {
+	
 		String className = getClass().getGenericSuperclass().toString();
 
 		// Cach 1: return "com.dauXanh.entity.User"

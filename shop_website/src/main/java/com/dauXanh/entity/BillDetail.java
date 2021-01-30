@@ -65,5 +65,4 @@ public class BillDetail {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 }

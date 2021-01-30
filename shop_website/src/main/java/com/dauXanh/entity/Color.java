@@ -27,6 +27,13 @@ public class Color {
 	
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public Color() {
+	}
+
+	public Color(@NotEmpty(message = "Name is required") String name) {
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
@@ -59,5 +66,4 @@ public class Color {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 }

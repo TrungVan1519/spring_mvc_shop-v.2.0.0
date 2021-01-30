@@ -5,7 +5,7 @@
 
 <main>
 	<div
-		class="d-flex justify-content-center align-items-center h-100 bg-primary">
+		class="d-flex justify-content-center align-items-center bg-primary" style="height: 100vh;">
 		<div class="d-flex w-75 h-75 bg-light">
 			<div
 				class="text-white flex-grow-1 d-flex flex-column justify-content-between p-3"
@@ -146,40 +146,42 @@
 		});
 
 		btnLogin.click(function(e) {
+			const rootContextPath = window.location.pathname.match(/[^/]+/)[0];
+
 			$.ajax({
 				type : "POST",
-				url : "/online-shop/auth/ajax-login",
+				url : "/" + rootContextPath + "/auth/ajax-login",
 				data : {
 					email : formLogin.find("[name='email']").val(),
 					password : formLogin.find("[name='password']").val(),
 				},
-				success : function(response) {
-					if (response) {
-						let tmp = window.location.href.split("/");
-						tmp.pop();
-
+				success : function(redirectLink) {
+					if (redirectLink) {
 						// redirect to "/"
-						window.location.href = tmp.join("/") + response;
+						window.location.href = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/')) + redirectLink;
 					} else {
-						alert("Cannot login account. Please try again.");
+						alert("Cannot login account. Please try again!");
 					}
 				}
 			});
 		});
 
 		btnSignup.click(function(e) {
+			const rootContextPath = window.location.pathname.match(/[^/]+/)[0];
+
 			$.ajax({
 				type : "POST",
-				url : "/online-shop/auth/ajax-signup",
+				url : "/" + rootContextPath + "/auth/ajax-signup",
 				data : {
 					name : formSignup.find("[name='name']").val(),
 					email : formSignup.find("[name='email']").val(),
 					password : formSignup.find("[name='password']").val(),
 				},
-				success : function(response) {
-					if (response) {
-						alert("Cannot sign up account. Please try again. Reason(s):\n" + response);
+				success : function(errorReasons) {
+					if (errorReasons) {
+						alert("Cannot sign up account. Please try again!\nReason(s):\n" + errorReasons);
 					} else {
+						alert("Sign up account successfully.");
 						forLoginMode();
 					}
 				}

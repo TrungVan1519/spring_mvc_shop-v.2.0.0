@@ -45,6 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Bean
 	MessageSource messageSource() {
+		
 		ReloadableResourceBundleMessageSource bundleMessageSource = new ReloadableResourceBundleMessageSource();
 		bundleMessageSource.setBasenames("classpath:message");
 		bundleMessageSource.setDefaultEncoding("utf-8");
@@ -59,10 +60,11 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Bean
 	ViewResolver viewResolver() {
+		
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setPrefix("/views/");
 		viewResolver.setSuffix(".jsp");
-		// setOrder to use other ViewResolvers at the same time.
+		// setOrder(_) to use other ViewResolvers at the same time.
 		// In this situation, we combine InternalResourceViewResolver and
 		// TilesViewResolver
 		viewResolver.setOrder(2);
@@ -77,6 +79,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Bean
 	TilesConfigurer tilesConfigurer() {
+	
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
 		tilesConfigurer.setDefinitions("classpath:tiles.xml");
 		tilesConfigurer.setCheckRefresh(true);
@@ -86,8 +89,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	ViewResolver tilesViewResolver() {
+	
 		TilesViewResolver tilesViewResolver = new TilesViewResolver();
-		// setOrder to use other ViewResolvers at the same time.
+		// setOrder(_) to use other ViewResolvers at the same time.
 		// In this situation, we combine InternalResourceViewResolver and
 		// TilesViewResolver
 		tilesViewResolver.setOrder(1);
@@ -99,10 +103,11 @@ public class WebConfig implements WebMvcConfigurer {
 	 * Static Resources: css files, js files, imgs, third-party libraries, etc
 	 */
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// project file
+	
+		// Project files
 		registry.addResourceHandler("/public/**").addResourceLocations("/public/");
 
-		// system file (computer files)
+		// System files (computer files)
 		registry.addResourceHandler("/server/**").addResourceLocations("file:C:/Users/Admin/Desktop/online_website/");
 	}
 
@@ -111,6 +116,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Bean
 	public MultipartResolver multipartResolver() {
+	
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		// -1 means unlimited file size
 		multipartResolver.setMaxUploadSize(-1);
@@ -128,21 +134,23 @@ public class WebConfig implements WebMvcConfigurer {
 	// Reading database.properties file from @PropertySource for connecting DB
 	@Bean
 	static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+	
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
 	// Data source
 	@Bean
 	DataSource dataSource() {
+	
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		// by hard code
+//		// By hard code
 //		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 //		dataSource.setUrl("jdbc:mysql://localhost:3306/web_student_tracker");
 //		dataSource.setUsername("webstudent");
 //		dataSource.setPassword("webstudent");
 
-		// by reading properties file
+		// By reading properties file
 		dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
 		dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
@@ -154,6 +162,7 @@ public class WebConfig implements WebMvcConfigurer {
 	// Hibernate properties
 	@Bean
 	Properties hibernateProperties() {
+	
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
 		properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
@@ -172,6 +181,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Bean
 	LocalSessionFactoryBean sessionFactory(@Autowired Properties hibernateProperties,
 			@Autowired DataSource dataSource) {
+	
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setPackagesToScan(env.getRequiredProperty("hibernate.packagesToScan"));
@@ -183,6 +193,7 @@ public class WebConfig implements WebMvcConfigurer {
 	// Spring transaction
 	@Bean
 	HibernateTransactionManager transactionManager(@Autowired SessionFactory sessionFactory) {
+	
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(sessionFactory);
 
@@ -197,6 +208,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public JavaMailSender getJavaMailSender() {
+		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);

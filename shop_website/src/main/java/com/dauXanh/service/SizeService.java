@@ -3,6 +3,7 @@ package com.dauXanh.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,19 +15,24 @@ import com.dauXanh.entity.Size;
 @Service
 @Transactional
 public class SizeService {
+	
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	SizeDAO<Size> sizeDAO;
 	
 	public List<Size> findAll(Page page) throws Exception {
+		
 		return sizeDAO.findAll(null, null, page);
 	}
 	
 	public Size findById(int id) throws Exception {
+		
 		return sizeDAO.findById(Size.class, id);
 	}
 	
 	public boolean save(Size size) throws Exception {
+		
 		size.setCreatedAt(new Date());
 		size.setUpdatedAt(new Date());
 
@@ -34,13 +40,15 @@ public class SizeService {
 	}
 
 	public boolean update(Size size) throws Exception {
+		
 		size.setCreatedAt(size.getCreatedAt());
 		size.setUpdatedAt(new Date());
 
 		return sizeDAO.update(size);
 	}
 
-	public boolean deleteById(int id) {
+	public boolean deleteById(int id) throws Exception {
+		
 		return sizeDAO.deleteById(Size.class, id);
 	}
 }

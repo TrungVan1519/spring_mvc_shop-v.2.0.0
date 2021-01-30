@@ -40,6 +40,16 @@ public class ProductDetail {
 	
 	@Temporal(TemporalType.DATE)
 	Date updatedAt;
+	
+	public ProductDetail() {
+	}
+	
+	public ProductDetail(int qty, Product product, Color color, Size size) {
+		this.qty = qty;
+		this.product = product;
+		this.color = color;
+		this.size = size;
+	}
 
 	public int getId() {
 		return id;
@@ -96,5 +106,4 @@ public class ProductDetail {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 }
