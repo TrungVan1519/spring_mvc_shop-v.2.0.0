@@ -237,7 +237,7 @@ public class ProductController {
 	}
 
 	/**
-	 * For product/my-products.jsp
+	 * For product/manage-products.jsp
 	 * 
 	 * @param req
 	 * @param session
